@@ -1,0 +1,234 @@
+<%- include('partials/_header') %>
+
+    <!-- Clase donde colocaremos todo nuestro código prácticamente -->
+    <div class="container">
+        <!-- Clase para realizar 5 unidades de padding en el axis y y aplicar centrado-->
+        <div class="py-5 text-center">
+            <!-- Imagen del logo -->
+            <img class="mb-3 d-block mx-auto" width="125" height="125"
+                src="https://media.discordapp.net/attachments/937547849762213938/979235411907977286/ALEJANDROY.png"
+                alt="school_logo">
+            <h2>Realiza tu pago</h2>
+        </div>
+    </div>
+
+    <!-- Parte del formulario -->
+    <div class="container">
+        <form action="/add_transaccion" method="post" class="needs-validation">
+            <div class="card">
+                <div class="card-body bg-dark">
+                    <div class="py-3">
+                        <h4>Información Personal</h4>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label for="cc" class="form-label">C.C.</label>
+                            <input name="cc" id="cc" type="text" class="form-control" readonly>
+                            <div class="invalid-feedback">
+                                Esta información es requerida.
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="nombre" class="form-label">Nombre Completo</label>
+                            <input name="nombre" id="nombre" type="text" class="form-control" readonly>
+                            <div class="invalid-feedback">
+                                Esta información es requerida.
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <label for="email" class="form-label">Email</label>
+                            <div class="input-group">
+                                <span class="input-group-text">@</span>
+                                <input name="email" id="email" type="text" class="form-control" readonly>
+                            </div>
+                            <div class="invalid-feedback">
+                                Esta información es requerida.
+                            </div>
+                        </div>
+
+
+                        <hr class="mt-5">
+                    </div>
+
+                    <!-- Parte de la información de pago -->
+
+                    <div class="py-3">
+                        <h4>Información de Pago</h4>
+                    </div>
+                    <div class="row my-3">
+                        <div class="col-md-6">
+                            <label for="concepto" class="form-label"> Concepto de Pago</label>
+                            <input name="concepto" id="concepto" type="text" class="form-control" required>
+                            <small class="text-muted">Motivo de pago</small>
+                            <div class="invalid-feedback">
+                                Esta información es requerida.
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label for="monto" class="form-label">Monto a Pagar</label>
+                            <input name="monto" id="monto" type="number" class="form-control" required>
+                            <div class="invalid-feedback">
+                                Esta información es requerida.
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="sede" class="form-label">Sede</label>
+                            <input name="sede" id="sede" type="text" class="form-control" required>
+                            <div class="invalid-feedback">
+                                Esta información es requerida.
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Escoger medio de pago -->
+                    <div class="col-md-2 ">
+                        <label for="medio_pago" class="form-label">Elegir medio de pago</label>
+                        <select name="medio_pago" id="medio_pago" onchange="handleMedioDePago(value)" required>
+                            <option value="">Escoja una opción...</option>
+                            <option value="credito">Crédito</option>
+                            <option value="debito">Débito</option>
+                        </select>
+                        <div class="invalid-feedback">
+                            Esta información es requerida.
+                        </div>
+                    </div>
+
+
+                    <div class="row my-3">
+                        <div class="col-md-6 my-2">
+                            <label for="nombre_tarjeta" id="nombre_tarjeta_label" class="form-label">Nombre del
+                                Titular</label>
+                            <input name="nombre_tarjeta" id="nombre_tarjeta" type="text" class="form-control" required>
+                            <small id="nombre_tarjeta_small" class="text-muted">Nombre completo que aparece en la
+                                tarjeta</small>
+                            <div class="invalid-feedback">
+                                Esta información es requerida.
+                            </div>
+                        </div>
+                        <div class="col-md-6 my-2">
+                            <label for="num_tarjeta" id="num_tarjeta_label" class="form-label">Número de la
+                                Tarjeta</label>
+                            <input name="num_tarjeta" id="num_tarjeta" type="number" class="form-control" required>
+                            <div class="invalid-feedback">
+                                Esta información es requerida.
+                            </div>
+                        </div>
+                        <div class="col-md-2 ">
+                            <label for="fecha_expiracion" id="fecha_expiracion_label" class="form-label">Fecha de
+                                Expiración</label>
+                            <input name="fecha_expiracion" id="fecha_expiracion" type="date" class="form-control"
+                                required>
+                            <div class="invalid-feedback">
+                                Esta información es requerida.
+                            </div>
+                        </div>
+                        <div class="col-md-2 ">
+                            <label for="codigo_seguridad" id="codigo_seguridad_label" class="form-label">Código de
+                                Seguridad</label>
+                            <input name="codigo_seguridad" id="codigo_seguridad" type="number" class="form-control"
+                                required>
+                            <div class="invalid-feedback">
+                                Esta información es requerida.
+                            </div>
+                        </div>
+                        <div class="col-md-2 ">
+                            <label for="cuotas" id="cuotas_label" class="form-label">Nro. de Cuotas</label>
+                            <select name="cuotas" id="cuotas" required>
+                                <option selected value="">Escoja una opción...</option>
+                                <option value="1">1</option>
+                                <option value="6">6</option>
+                                <option value="12">12</option>
+                                <option value="24">24</option>
+                            </select>
+                            <div class="invalid-feedback">
+                                Esta información es requerida.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row my-3">
+                <button class="btn btn-primary btn-lg btn-block" type="submit">Pagar</button>
+            </div>
+        </form>
+    </div>
+
+    <!-- Optional JavaScript; choose one of the two! -->
+
+    <!-- Option 1: Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
+    <script>
+        //Obtenemos la Cédula
+        var cc = "<%- data[0].cc %>";
+        document.getElementById("cc").value = cc;
+        //Obtenemos el nombre
+        var nombre = "<%- data[0].nombre_cliente %>";
+        document.getElementById("nombre").value = nombre;
+        //Obtenemos el email
+        var email = "<%- data[0].email %>";
+        document.getElementById("email").value = email;
+        //Seteamos que estos datos no aparezcan hasta que se ponga crédito
+        hideData();
+        //Cambiamos el html dependiendo de la opción
+        function handleMedioDePago(choice) {
+            if (choice == "") {
+                hideData();
+            }
+            if (choice == "credito") {
+                displayDataCredito();
+            } else if (choice == "debito") {
+                displayDataDebito();
+            }
+        }
+        function displayDataDebito() {
+            document.getElementById('nombre_tarjeta_label').style.display = "";
+            document.getElementById('nombre_tarjeta').style.display = "";
+            document.getElementById('nombre_tarjeta_small').style.display = "";
+            document.getElementById('num_tarjeta_label').style.display = "";
+            document.getElementById('num_tarjeta').style.display = "";
+            document.getElementById('cuotas').style.display = "none";
+            document.getElementById('cuotas').disabled = true;
+            document.getElementById('cuotas_label').style.display = "none";
+            document.getElementById('fecha_expiracion_label').style.display = "none";
+            document.getElementById('fecha_expiracion').style.display = "none";
+            document.getElementById('fecha_expiracion').disabled = true;
+            document.getElementById('codigo_seguridad_label').style.display = "none";
+            document.getElementById('codigo_seguridad').style.display = "none";
+            document.getElementById('codigo_seguridad').disabled = true;
+        }
+
+        function displayDataCredito() {
+            document.getElementById('cuotas').style.display = "";
+            document.getElementById('cuotas_label').style.display = "";
+            document.getElementById('cuotas').disabled = false;
+            document.getElementById('fecha_expiracion_label').style.display = "";
+            document.getElementById('fecha_expiracion').style.display = "";
+            document.getElementById('fecha_expiracion').disabled = false;
+            document.getElementById('codigo_seguridad_label').style.display = "";
+            document.getElementById('codigo_seguridad').style.display = "";
+            document.getElementById('codigo_seguridad').disabled = false;
+            document.getElementById('nombre_tarjeta_label').style.display = "";
+            document.getElementById('nombre_tarjeta').style.display = "";
+            document.getElementById('nombre_tarjeta_small').style.display = "";
+            document.getElementById('num_tarjeta_label').style.display = "";
+            document.getElementById('num_tarjeta').style.display = "";
+        }
+        function hideData() {
+            document.getElementById('cuotas').style.display = "none";
+            document.getElementById('cuotas_label').style.display = "none";
+            document.getElementById('fecha_expiracion_label').style.display = "none";
+            document.getElementById('fecha_expiracion').style.display = "none";
+            document.getElementById('codigo_seguridad_label').style.display = "none";
+            document.getElementById('codigo_seguridad').style.display = "none";
+            document.getElementById('nombre_tarjeta_label').style.display = "none";
+            document.getElementById('nombre_tarjeta').style.display = "none";
+            document.getElementById('nombre_tarjeta_small').style.display = "none";
+            document.getElementById('num_tarjeta_label').style.display = "none";
+            document.getElementById('num_tarjeta').style.display = "none";
+        }
+    </script>
+
+    <%- include('partials/_footer') %>
