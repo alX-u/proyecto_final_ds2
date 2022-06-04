@@ -17,7 +17,7 @@ CREATE TABLE Tarjeta (
     cc_cliente INT NOT NULL, 
     entidad VARCHAR(20),
     tipo VARCHAR(15),
-    saldo float, 
+    saldo float,
     expiracion DATE, 
     csc INT, 
     PRIMARY KEY(nro_tarjeta),
@@ -30,7 +30,7 @@ CREATE TABLE Historial_Transaccion (
     concepto VARCHAR(60) NOT NULL,
     sede VARCHAR(30) NOT NULL,
     monto INT NOT NULL, 
-    medio_de_pago INT8 NOT NULL,
+    medio_de_pago INT8,
     nro_cuotas INT,
     fecha DATE NOT NULL,
     PRIMARY KEY(id_transaccion),
@@ -38,3 +38,5 @@ CREATE TABLE Historial_Transaccion (
     FOREIGN KEY(cc_cliente) REFERENCES Cliente (cc) ON DELETE CASCADE ON UPDATE CASCADE,
     FOREIGN KEY(medio_de_pago) REFERENCES Tarjeta (nro_tarjeta) ON DELETE CASCADE ON UPDATE CASCADE
 );
+
+
