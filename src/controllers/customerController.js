@@ -74,7 +74,7 @@ controller.addTransaccion = (req, res) => {
                     });
                 } else {
                     //Realizamos el insert en la base de datos como una transacción fallida
-                    conn.query('INSERT INTO Historial_Transaccion VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)', [id_transaccion, cc_cliente, concepto, sede, monto, 0, nro_cuotas, fecha, exito], (err, transaccion) => {
+                    conn.query('INSERT INTO Historial_Transaccion VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)', [id_transaccion, cc_cliente, concepto, sede, monto, medio_de_pago, nro_cuotas, fecha, exito], (err, transaccion) => {
                         console.log(transaccion);
                         res.render('fail_payment');
                     });
@@ -98,7 +98,6 @@ controller.login = (req, res) => {
                 if (err) {
                     res.json(err);
                 } else {
-                    console.log(rows);
                     res.render('customers', {
                         data: rows
                     });

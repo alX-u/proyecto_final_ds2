@@ -33,10 +33,7 @@ CREATE TABLE Historial_Transaccion (
     medio_de_pago INT8,
     nro_cuotas INT,
     fecha DATE NOT NULL,
-    PRIMARY KEY(id_transaccion),
     exito BOOLEAN,
-    FOREIGN KEY(cc_cliente) REFERENCES Cliente (cc) ON DELETE CASCADE ON UPDATE CASCADE,
-    FOREIGN KEY(medio_de_pago) REFERENCES Tarjeta (nro_tarjeta) ON DELETE CASCADE ON UPDATE CASCADE
+    PRIMARY KEY(id_transaccion),
+    FOREIGN KEY(cc_cliente) REFERENCES Cliente (cc) ON DELETE CASCADE ON UPDATE CASCADE
 );
-
-
