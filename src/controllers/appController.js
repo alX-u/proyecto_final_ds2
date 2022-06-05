@@ -41,13 +41,18 @@ controller.addTransaccion = (req, res) => {
                     console.log("soy el csc: " + validacion[i].csc);
                     if (tipo_pago == 'credito') {
                         if (validacion[i].nro_tarjeta == medio_de_pago
-                            && codigo_seguridad == validacion[i].csc && validacion[i].tipo == tipo_pago) {
+                            && codigo_seguridad == validacion[i].csc
+                            && validacion[i].tipo == tipo_pago
+                            && monto < validacion[i].saldo) {
                             exito = true;
-                            console.log(fecha_expiracion);
-                            console.log(validacion[i].expiracion)
+                            //Descontamos el monto que se va a pagar del saldo de la tareta de débito del cliente.
+                            conn.query('UPDATE Tarjeta SET saldo = ? WHERE cc_cliente = ? AND nro_tarjeta = ?', [validacion[i].saldo - monto, data.cc, medio_de_pago], (err, transaccion) => {
+                                console.log(transaccion);
+                            });
                         }
                     } else {
-                        if (validacion[i].nro_tarjeta == medio_de_pago && validacion[i].tipo == tipo_pago
+                        if (validacion[i].nro_tarjeta == medio_de_pago
+                            && validacion[i].tipo == tipo_pago
                             && monto < validacion[i].saldo) {
                             exito = true;
                             //Descontamos el monto que se va a pagar del saldo de la tareta de débito del cliente.
@@ -105,6 +110,24 @@ controller.login = (req, res) => {
             });
         });
     }
+
+}
+
+controller.consultar = (req, res) => {
+    req.getConnection((err, conn) => {
+        user = req.oidc.user;
+        console.log(user.cc);
+        //Obtenemos la data de la persona que ingresa a la plataforma
+        conn.query('SELECT entidad, tipo, saldo FROM Tarjeta, Cliente WHERE email = ? AND cc = cc_cliente', [user.email], (err, rows) => {
+            if (err) {
+                res.json(err);
+            } else {
+                console.log(rows);
+                res.render('consulta_saldo',
+                    { data: rows });
+            }
+        });
+    });
 
 }
 

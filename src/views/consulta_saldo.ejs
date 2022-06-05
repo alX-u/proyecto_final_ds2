@@ -1,0 +1,47 @@
+<%- include('partials/_header') %>
+<nav class="navbar navbar-expand-lg navbar-light bg-light fs-5">
+    <a class="navbar-brand ms-5" href="/">Volver</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+</nav>
+
+    <div class="container">
+        <div class="row mt-5">
+            <div class="col-md-7">
+                <table class="table table-bordered table-hover text-white">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>Entidad</th>
+                            <th>Tipo de Tarjeta</th>
+                            <th>Saldo</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <%if(data){%>
+                            <%for (var i=0; i < data.length; i++) { %>
+                                <tr>
+                                    <td>
+                                        <%- (i+1) %>
+                                    </td>
+                                    <td>
+                                        <%- data[i].entidad %>
+                                    </td>
+                                    <td>
+                                        <%- data[i].tipo %>
+                                    </td>
+                                    <td>
+                                        <%- data[i].saldo %>
+                                    </td>
+                                </tr>
+                                <%}%>
+                                    <%}%>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <%- include('partials/_footer') %>

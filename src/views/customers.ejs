@@ -1,8 +1,22 @@
 <%- include('partials/_header') %>
 
+    <nav class="navbar navbar-expand-lg navbar-light bg-light fs-5">
+        <a class="navbar-brand ms-5" href="/logout">Volver</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li>
+                    <a href="/consultar_saldo" class="nav-link active">Consulte su Saldo</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
     <!-- Clase donde colocaremos todo nuestro código prácticamente -->
     <div class="container">
-        <a class="py-3" href="/logout">Volver</a>
         <!-- Clase para realizar 5 unidades de padding en el axis y y aplicar centrado-->
         <div class="py-5 text-center">
             <!-- Imagen del logo -->
@@ -83,19 +97,19 @@
                     </div>
 
                     <!-- Escoger medio de pago -->
-                    <div class="col-md-2 ">
-                        <label for="medio_pago" class="form-label">Elegir medio de pago</label>
-                        <select name="medio_pago" id="medio_pago" onchange="handleMedioDePago(value)" required>
-                            <option value="">Escoja una opción...</option>
-                            <option value="credito">Crédito</option>
-                            <option value="debito">Débito</option>
-                        </select>
-                        <div class="invalid-feedback">
-                            Esta información es requerida.
+                    <div class="row my-3">
+                        <div class="col-md-2 ">
+                            <label for="medio_pago" class="form-label">Elegir medio de pago</label>
+                            <select name="medio_pago" id="medio_pago" onchange="handleMedioDePago(value)" required>
+                                <option value="">Escoja una opción...</option>
+                                <option value="credito">Crédito</option>
+                                <option value="debito">Débito</option>
+                            </select>
+                            <div class="invalid-feedback">
+                                Esta información es requerida.
+                            </div>
                         </div>
                     </div>
-
-
                     <div class="row my-3">
                         <div class="col-md-6 my-2">
                             <label for="nombre_tarjeta" id="nombre_tarjeta_label" class="form-label">Nombre del
@@ -153,6 +167,7 @@
                 <button class="btn btn-primary btn-lg btn-block" type="submit">Pagar</button>
             </div>
         </form>
+
     </div>
 
     <!-- Optional JavaScript; choose one of the two! -->
