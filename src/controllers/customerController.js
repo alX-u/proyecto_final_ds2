@@ -1,21 +1,5 @@
 const controller = {};
 
-controller.getForm = (req, res) => {
-    req.getConnection((err, conn) => {
-        //Obtenemos la data de la persona que ingresa a la plataforma
-        conn.query('SELECT * FROM Cliente WHERE cc = 1003265128', (err, rows) => {
-            if (err) {
-                res.json(err);
-            } else {
-                console.log(rows);
-                res.render('customers', {
-                    data: rows
-                });
-            }
-        });
-    });
-}
-
 controller.addTransaccion = (req, res) => {
     //Validamos que exista la tarjeta
     req.getConnection((err, conn) => {
@@ -95,16 +79,34 @@ controller.addTransaccion = (req, res) => {
                         res.render('fail_payment');
                     });
                 }
-
-
-
             }
         });
     });
 }
 
-controller.success = (req, res) => {
-    res.render('success_payment.ejs');
-};
+controller.login = (req, res) => {
+    console.log(req.oidc.isAuthenticated());
+    isAuthenticated = req.oidc.isAuthenticated();
+    if (!isAuthenticated) {
+        res.render('index');
+    } else {
+        req.getConnection((err, conn) => {
+            user = req.oidc.user;
+            console.log(user.email);
+            //Obtenemos la data de la persona que ingresa a la plataforma
+            conn.query('SELECT * FROM Cliente WHERE email = ?', [user.email], (err, rows) => {
+                if (err) {
+                    res.json(err);
+                } else {
+                    console.log(rows);
+                    res.render('customers', {
+                        data: rows
+                    });
+                }
+            });
+        });
+    }
+
+}
 
 module.exports = controller;
