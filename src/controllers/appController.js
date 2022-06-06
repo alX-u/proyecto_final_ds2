@@ -43,7 +43,8 @@ controller.addTransaccion = (req, res) => {
                         if (validacion[i].nro_tarjeta == medio_de_pago
                             && codigo_seguridad == validacion[i].csc
                             && validacion[i].tipo == tipo_pago
-                            && monto < validacion[i].saldo) {
+                            && monto < validacion[i].saldo 
+                            && monto > 0) {
                             exito = true;
                             //Descontamos el monto que se va a pagar del saldo de la tareta de débito del cliente.
                             conn.query('UPDATE Tarjeta SET saldo = ? WHERE cc_cliente = ? AND nro_tarjeta = ?', [validacion[i].saldo - monto, data.cc, medio_de_pago], (err, transaccion) => {
@@ -53,7 +54,8 @@ controller.addTransaccion = (req, res) => {
                     } else {
                         if (validacion[i].nro_tarjeta == medio_de_pago
                             && validacion[i].tipo == tipo_pago
-                            && monto < validacion[i].saldo) {
+                            && monto < validacion[i].saldo 
+                            && monto > 0) {
                             exito = true;
                             //Descontamos el monto que se va a pagar del saldo de la tareta de débito del cliente.
                             conn.query('UPDATE Tarjeta SET saldo = ? WHERE cc_cliente = ? AND nro_tarjeta = ?', [validacion[i].saldo - monto, data.cc, medio_de_pago], (err, transaccion) => {
